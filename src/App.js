@@ -11,13 +11,20 @@ class App extends React.Component {
     selectedVideo: ""
   };
 
+  componentDidMount() {
+    this.searchSubmit("");
+  }
+
   searchSubmit = async query => {
     const response = await youtube.get("/search", {
       params: {
         q: query
       }
     });
-    this.setState({ videos: response.data.items });
+    this.setState({
+      videos: response.data.items,
+      selectedVideo: response.data.items[0]
+    });
   };
 
   onVideoSelect = video => {
